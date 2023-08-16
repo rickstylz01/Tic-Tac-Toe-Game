@@ -4,33 +4,33 @@
 // find a way to toggle from 'x' to 'o'
 const tokenX = 'X';
 const tokenO = 'O';
-let currentPlayer = tokenX;
+let currentToken = tokenX;
 
 // toggle between 'X' and 'O' tokens
 function toggleToken() {
   // if currentPlayer equals tokenX then swith to tokenO and vice versa
-  currentPlayer = (currentPlayer === tokenX) ? tokenO : tokenX;
+  currentToken = (currentToken === tokenX) ? tokenO : tokenX;
 }
 
 // if current block has no inner text, set it with the current player token
+// toggle current token
 function addToken(block) {
   if (!block.innerText) {
-    block.innerText = currentPlayer;
+    block.innerText = currentToken;
     toggleToken();
   }
 }
 
+// use the addToken function on current block
+function handleBlockClick(event) {
+  const clickedBlock = event.target;
+  addToken(clickedBlock);
+}
 
 
-// BLOCKS - ROW 1
-const block0 = document.querySelector('#block-0')
-const block1 = document.querySelector('#block-1');
-const block2 = document.querySelector('#block-2');
-// BLOCKS - ROW 2
-const block3 = document.querySelector('#block-3');
-const block4 = document.querySelector('#block-4');
-const block5 = document.querySelector('#block-5');
-// BLOCKS - ROW 3
-const block6 = document.querySelector('#block-6');
-const block7 = document.querySelector('#block-7');
-const block8 = document.querySelector('#block-8');
+const allBlocks = document.querySelectorAll('.block');
+console.log(allBlocks);
+allBlocks.forEach(block => {
+  block.innerText = "";
+  block.addEventListener('click',handleBlockClick)
+})
