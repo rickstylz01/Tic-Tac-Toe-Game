@@ -33,20 +33,20 @@ h2 {
   justify-content: center;
 }
 
-.first-row,
-.second-row {
+#first-row,
+#second-row {
   border-bottom: 2px solid black;
 }
 
-.first-row div:nth-child(3),
-.second-row div:nth-child(3),
-.third-row div:nth-child(3) {
+#first-row div:nth-child(3),
+#second-row div:nth-child(3),
+#third-row div:nth-child(3) {
   border-left: 2px solid black;
 }
 
-.first-row div:nth-child(1),
-.second-row div:nth-child(1),
-.third-row div:nth-child(1) {
+#first-row div:nth-child(1),
+#second-row div:nth-child(1),
+#third-row div:nth-child(1) {
   border-right: 2px solid black;
 }
 
