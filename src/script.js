@@ -8,8 +8,16 @@ let currentPlayer = tokenX;
 
 // toggle between 'X' and 'O' tokens
 function toggleToken() {
-  // if currentPlayer equals tokenX then swith to tokenO
+  // if currentPlayer equals tokenX then swith to tokenO and vice versa
   currentPlayer = (currentPlayer === tokenX) ? tokenO : tokenX;
+}
+
+// if current block has no inner text, set it with the current player token
+function addToken(block) {
+  if (!block.innerText) {
+    block.innerText = currentPlayer;
+    toggleToken();
+  }
 }
 
 
