@@ -41,21 +41,6 @@ function handleBlockClick(event) {
   }
 }
 
-function findDraw() {
-  let allMoves = 0;
-  gameBoard.forEach((block) => {
-    if (block.innerText !== "") {
-      allMoves++;
-    }
-  });
-  //if allMoves equals 9 (and a winner is not found)
-  if (allMoves === 9) {
-    alert("DRAW");
-    gameOver = true;
-    resetBtn.classList.toggle("hidden");
-  }
-}
-
 function checkWinner() {
   const winningCombinations = [
     [0, 1, 2],
@@ -82,12 +67,27 @@ function checkWinner() {
 
     if (theresAWinner) {
       // return gameBoard[blockId0].innerText;
-      return gameBoard[blockId0] === tokenX
+      return gameBoard[blockId0].innerText === tokenX
         ? player1Div.innerText
         : player2Div.innerText;
     }
   }
   findDraw();
+}
+
+function findDraw() {
+  let allMoves = 0;
+  gameBoard.forEach((block) => {
+    if (block.innerText !== "") {
+      allMoves++;
+    }
+  });
+  //if allMoves equals 9 (and a winner is not found)
+  if (allMoves === 9) {
+    alert("DRAW");
+    gameOver = true;
+    resetBtn.classList.toggle("hidden");
+  }
 }
 
 //gets all the blocks from the gameboard and adds event listener
@@ -104,11 +104,11 @@ resetBtn.addEventListener("click", () => {
   gameBoard.forEach((block) => (block.innerText = ""));
   resetBtn.classList.toggle("hidden");
 
-  // Prompt for player usernames again
+  // prompt for player usernames again
   player1UsrName = prompt("Player 1, what is your name?");
   player2UsrName = prompt("Player 2, what is your name?");
   
-  // Update player names 
+  // update player names 
   player1Div.innerText = !player1UsrName ? "Player 1" : player1UsrName;
   player2Div.innerText = !player2UsrName ? "Player 2" : player2UsrName;
 });
