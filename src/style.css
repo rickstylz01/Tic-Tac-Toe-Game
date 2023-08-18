@@ -37,6 +37,10 @@ h2 {
   justify-content: center;
 }
 
+.block {
+  font-size: xx-large;
+}
+
 #first-row,
 #second-row {
   border-bottom: 2px solid black;

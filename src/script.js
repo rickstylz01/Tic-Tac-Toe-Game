@@ -30,6 +30,7 @@ function findDraw() {
     // TODO: add prompt to ask if they want to reset the game
     alert("DRAW");
     gameOver = true;
+    resetBtn.classList.toggle('hidden')
   }
 }
 
@@ -83,7 +84,7 @@ function handleBlockClick(event) {
 
     const winner = checkWinner();
     if (winner) {
-      alert(`Player ${winner} wins!`);
+      alert(`${winner} wins!`);
       gameOver = true;
       resetBtn.classList.toggle('hidden')
     }
