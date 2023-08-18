@@ -2,8 +2,16 @@ const tokenX = "X";
 const tokenO = "O";
 let currentToken = tokenX;
 let gameOver = false;
-//TODO: Make a reset function
-//TODO: Make a prompt asking
+//TODO: Make a prompt asking for each players name
+const player1 = prompt("Player 1, what is your name?");
+const player2 = prompt("Player 2, what is your name?");
+
+const player1Div = document.querySelector('.player1');
+player1Div.innerText = player1;
+const player2Div = document.querySelector('.player2');
+player2Div.innerText = player2;
+console.log(player1Div);
+
 
 // toggle between 'X' and 'O' tokens and toggles players
 function toggleToken() {
@@ -59,7 +67,8 @@ function checkWinner() {
       gameBoard[blockId0].innerText === gameBoard[blockId2].innerText;
 
     if (theresAWinner) {
-      return gameBoard[blockId0].innerText;
+      // return gameBoard[blockId0].innerText;
+      return gameBoard[blockId0] === 'X' ? player2 : player1;
     }
   }
   findDraw();
@@ -72,6 +81,8 @@ function reset() {
   currentToken = tokenX;
   gameBoard.forEach((block) => (block.innerText = ""));
   gameOver = false;
+  player1Div.innerText = 'Player 1';
+  player2Div.innerText = 'Player 2';
 }
 
 // add current token to the clicked block
