@@ -85,6 +85,7 @@ function handleBlockClick(event) {
     if (winner) {
       alert(`Player ${winner} wins!`);
       gameOver = true;
+      resetBtn.classList.toggle('hidden')
     }
   }
 }
