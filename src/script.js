@@ -16,6 +16,31 @@ function toggleToken() {
   currentToken = currentToken === tokenX ? tokenO : tokenX;
 }
 
+// if clicked block has no inner text then set it and toggle token
+function addToken(block) {
+  if (!block.innerText) {
+    block.innerText = currentToken;
+    toggleToken();
+  }
+}
+
+// add current token to the clicked block
+function handleBlockClick(event) {
+  // checking if the game is not over
+  if (!gameOver) {
+    const clickedBlock = event.target;
+
+    addToken(clickedBlock);
+
+    const winner = checkWinner();
+    if (winner) {
+      alert(`${winner} wins!`);
+      gameOver = true;
+      resetBtn.classList.toggle("hidden");
+    }
+  }
+}
+
 function findDraw() {
   let allMoves = 0;
   gameBoard.forEach((block) => {
@@ -63,31 +88,6 @@ function checkWinner() {
     }
   }
   findDraw();
-}
-
-// add current token to the clicked block
-function handleBlockClick(event) {
-  // checking if the game is not over
-  if (!gameOver) {
-    const clickedBlock = event.target;
-
-    addToken(clickedBlock);
-
-    const winner = checkWinner();
-    if (winner) {
-      alert(`${winner} wins!`);
-      gameOver = true;
-      resetBtn.classList.toggle("hidden");
-    }
-  }
-}
-
-// if clicked block has no inner text then set it and toggle token
-function addToken(block) {
-  if (!block.innerText) {
-    block.innerText = currentToken;
-    toggleToken();
-  }
 }
 
 //gets all the blocks from the gameboard and adds event listener
