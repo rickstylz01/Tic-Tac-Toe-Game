@@ -1,16 +1,14 @@
+let gameOver = false;
 const tokenX = "X";
 const tokenO = "O";
 let currentToken = tokenX;
-let gameOver = false;
-//TODO: Make a prompt asking for each players name
 const player1 = prompt("Player 1, what is your name?");
 const player2 = prompt("Player 2, what is your name?");
-
 const player1Div = document.querySelector('.player1');
-player1Div.innerText = player1;
 const player2Div = document.querySelector('.player2');
-player2Div.innerText = player2;
-console.log(player1Div);
+
+player1Div.innerText = !player1 ? 'Player 1' : player1;
+player2Div.innerText = !player2 ? 'Player 2' : player2;
 
 
 // toggle between 'X' and 'O' tokens and toggles players
@@ -68,7 +66,7 @@ function checkWinner() {
 
     if (theresAWinner) {
       // return gameBoard[blockId0].innerText;
-      return gameBoard[blockId0] === 'X' ? player2 : player1;
+      return gameBoard[blockId0] === tokenX ? player1 : player2;
     }
   }
   findDraw();
