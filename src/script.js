@@ -1,15 +1,27 @@
 let gameOver = false;
 const tokenX = "X";
 const tokenO = "O";
+let player1Score = 0;
+let player2Score = 0;
 let currentToken = tokenX;
-let player1UsrName = prompt("Player 1, what is your name?");
-let player2UsrName = prompt("Player 2, what is your name?");
+
+// setting player names
+// let player1UsrName = prompt("Player 1, what is your name?");
+// let player2UsrName = prompt("Player 2, what is your name?");
 const player1Div = document.querySelector(".player1");
 const player2Div = document.querySelector(".player2");
 
 //If no username was entered for player 1 or 2, set default username
-player1Div.innerText = !player1UsrName ? "Player 1" : player1UsrName;
-player2Div.innerText = !player2UsrName ? "Player 2" : player2UsrName;
+// player1Div.innerText = !player1UsrName ? "Player 1" : player1UsrName;
+// player2Div.innerText = !player2UsrName ? "Player 2" : player2UsrName;
+
+// setting initial scores
+const player1ScoreBoard = document.querySelector('#score-board-1');
+const player2ScoreBoard = document.querySelector('#score-board-2');
+// player1ScoreBoard.innerHTML = `Score: ${player1Score}`;
+// player2ScoreBoard.innerHTML = `Score: ${player2Score}`;
+player1ScoreBoard.innerHTML = 'Score: 0';
+player2ScoreBoard.innerHTML = 'Score: 0';
 
 // toggle between 'X' and 'O' tokens
 function toggleToken() {
@@ -66,10 +78,20 @@ function checkWinner() {
       gameBoard[blockId0].innerText === gameBoard[blockId2].innerText;
 
     if (theresAWinner) {
-      // return gameBoard[blockId0].innerText;
-      return gameBoard[blockId0].innerText === tokenX
-        ? player1Div.innerText
-        : player2Div.innerText;
+      let winningPlayer;
+      // return gameBoard[blockId0].innerText === tokenX
+      //   ? player1Div.innerText
+      //   : player2Div.innerText;
+      if (gameBoard[blockId0].innerText === tokenX) {
+        winningPlayer = player1Div.innerText;
+        player1Score++;
+        player1ScoreBoard.innerHTML = `Score: ${player1Score}`;
+      } else {
+        winningPlayer = player2Div.innerText;
+        player2Score++;
+        player2ScoreBoard.innerHTML = `Score: ${player2Score}`;
+      }
+      return winningPlayer;
     }
   }
   findDraw();
