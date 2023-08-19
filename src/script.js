@@ -9,8 +9,8 @@ let currentToken = tokenX;
 let player1UsrName = prompt("Player 1, what is your name?");
 let player2UsrName = prompt("Player 2, what is your name?");
 
-const player1Div = document.querySelector(".player1");
-const player2Div = document.querySelector(".player2");
+const player1Div = document.querySelector("#player1");
+const player2Div = document.querySelector("#player2");
 
 // If no username was entered for player 1 or 2, set default username
 player1Div.innerText = !player1UsrName ? "Player 1" : player1UsrName;
@@ -25,6 +25,21 @@ const winBannerP1 = document.querySelector('#win-announce-p1');
 const winBannerP2 = document.querySelector('#win-announce-p2');
 const drawBanner = document.querySelector('#win-announce-draw');
 
+// token boxes
+const player1TokenBox = document.querySelector('#t-box-1');
+const player2TokenBox = document.querySelector('#t-box-2');
+let tokens = [];
+
+const pngFileNames = ['angler-fish.svg', 'cyborg-face.svg', 'glass-heart.svg', 'unlit-bomb.svg', 'winged-sword.svg', 'wyvern.svg'];
+
+function loadPNGFiles() {
+  pngFileNames.forEach((filename) => {
+    const imagePath = `/assets/${filename}`;
+    tokens.push(imagePath);
+  })
+}
+loadPNGFiles();
+console.log(tokens);
 // toggle between 'X' and 'O' tokens
 function toggleToken() {
   currentToken = currentToken === tokenX ? tokenO : tokenX;
@@ -95,7 +110,7 @@ function checkWinner() {
         // winBannerP2.innerText = `${winningPlayer} Wins!`
         // winBannerP2.classList.toggle('hidden');
       }
-      
+
       // set the winner's name in the modal
       const modalWinnerName = document.getElementById('modalWinnerName');
       modalWinnerName.innerText = `${winningPlayer} Wins!`;
