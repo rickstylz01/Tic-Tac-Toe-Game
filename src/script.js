@@ -29,21 +29,17 @@ const drawBanner = document.querySelector('#win-announce-draw');
 const player1TokenBox = document.querySelector('#t-box-1');
 const player2TokenBox = document.querySelector('#t-box-2');
 
-let p1Tokens = ['./assets/player-1-tokens/angler-fish.svg', './assets/player-1-tokens/cyborg-face.svg', './assets/player-1-tokens/glass-heart.svg', './assets/player-1-tokens/unlit-bomb.svg', './assets/player-1-tokens/winged-sword.svg', './assets/player-1-tokens/wyvern.svg', ];
+let p2Tokens = ['./assets/player-2-tokens/cryo-chamber.svg', './assets/player-2-tokens/diamonds-smile.svg', './assets/player-2-tokens/robber.svg', './assets/player-2-tokens/robe.svg', './assets/player-2-tokens/shambling-zombie.svg', './assets/player-2-tokens/triton-head.svg', ];
 
+// generating token img elements and click methods
 
-
-// creating a div element for each token to set into each players token box div
-p1Tokens.forEach(tokenPath => {
+p2Tokens.forEach(tokenPath => {
   let tokenImgDiv = document.createElement('img');
   tokenImgDiv.setAttribute('src', tokenPath);
-  tokenImgDiv.addEventListener('click', e => {
-
-  })
-  player1TokenBox.appendChild(tokenImgDiv);
+  tokenImgDiv.setAttribute('style', 'margin-bottom: 5px');
+  player2TokenBox.appendChild(tokenImgDiv);
 })
 
-console.log(tokens);
 // toggle between 'X' and 'O' tokens
 function toggleToken() {
   currentToken = currentToken === tokenX ? tokenO : tokenX;
