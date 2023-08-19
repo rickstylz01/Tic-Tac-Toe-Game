@@ -6,22 +6,24 @@ let player2Score = 0;
 let currentToken = tokenX;
 
 // setting player names
-// let player1UsrName = prompt("Player 1, what is your name?");
-// let player2UsrName = prompt("Player 2, what is your name?");
+let player1UsrName = prompt("Player 1, what is your name?");
+let player2UsrName = prompt("Player 2, what is your name?");
+
 const player1Div = document.querySelector(".player1");
 const player2Div = document.querySelector(".player2");
 
-//If no username was entered for player 1 or 2, set default username
-// player1Div.innerText = !player1UsrName ? "Player 1" : player1UsrName;
-// player2Div.innerText = !player2UsrName ? "Player 2" : player2UsrName;
+// If no username was entered for player 1 or 2, set default username
+player1Div.innerText = !player1UsrName ? "Player 1" : player1UsrName;
+player2Div.innerText = !player2UsrName ? "Player 2" : player2UsrName;
 
 // setting initial scores
 const player1ScoreBoard = document.querySelector('#score-board-1');
 const player2ScoreBoard = document.querySelector('#score-board-2');
-// player1ScoreBoard.innerHTML = `Score: ${player1Score}`;
-// player2ScoreBoard.innerHTML = `Score: ${player2Score}`;
-player1ScoreBoard.innerHTML = 'Score: 0';
-player2ScoreBoard.innerHTML = 'Score: 0';
+
+// winning banner divs
+const winBannerP1 = document.querySelector('#win-announce-p1');
+const winBannerP2 = document.querySelector('#win-announce-p2');
+const drawBanner = document.querySelector('#win-announce-draw');
 
 // toggle between 'X' and 'O' tokens
 function toggleToken() {
@@ -46,7 +48,7 @@ function handleBlockClick(event) {
 
     const winner = checkWinner();
     if (winner) {
-      alert(`${winner} wins!`);
+      // alert(`${winner} wins!`);
       gameOver = true;
       resetBtn.classList.toggle("hidden");
     }
@@ -79,18 +81,29 @@ function checkWinner() {
 
     if (theresAWinner) {
       let winningPlayer;
-      // return gameBoard[blockId0].innerText === tokenX
-      //   ? player1Div.innerText
-      //   : player2Div.innerText;
+
       if (gameBoard[blockId0].innerText === tokenX) {
         winningPlayer = player1Div.innerText;
         player1Score++;
         player1ScoreBoard.innerHTML = `Score: ${player1Score}`;
+        // winBannerP1.innerText = `${winningPlayer} Wins!`
+        // winBannerP1.classList.toggle('hidden');
       } else {
         winningPlayer = player2Div.innerText;
         player2Score++;
         player2ScoreBoard.innerHTML = `Score: ${player2Score}`;
+        // winBannerP2.innerText = `${winningPlayer} Wins!`
+        // winBannerP2.classList.toggle('hidden');
       }
+      
+      // set the winner's name in the modal
+      const modalWinnerName = document.getElementById('modalWinnerName');
+      modalWinnerName.innerText = `${winningPlayer} Wins!`;
+
+      // show the modal
+      const winnerModal = new bootstrap.Modal(document.getElementById('winnerModal'));
+      winnerModal.show();      
+
       return winningPlayer;
     }
   }
@@ -106,7 +119,9 @@ function findDraw() {
   });
   //if allMoves equals 9 (and a winner is not found)
   if (allMoves === 9) {
-    alert("DRAW");
+    // alert("DRAW");
+    drawBanner.innerHTML = 'DRAW';
+    drawBanner.classList.toggle('hidden');
     gameOver = true;
     resetBtn.classList.toggle("hidden");
   }

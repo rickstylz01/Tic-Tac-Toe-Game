@@ -16,10 +16,43 @@
 
   <body>
     <h1>Let's Play Tic-Tac-Toe</h1>
+    <!-- Bootstrap modal -->
+    <div
+      class="modal fade"
+      id="winnerModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="winnerModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="winnerModalLabel">
+              Winner Announcement
+            </h5>
+          </div>
+          <div class="modal-body">
+            <!-- the winner's name -->
+            <p id="modalWinnerName"></p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-dark"
+              data-bs-dismiss="modal"
+              id="close-btn"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <section class="main-content">
       <aside class="player1-side">
         <h2 class="player1">Player 1</h2>
-        <div class="score-board" id="score-board-1"></div>
+        <div class="score-board" id="score-board-1">Score: 0</div>
       </aside>
       <div class="game-board">
         <div class="container-fluid text-center game-rows-container">
@@ -42,11 +75,15 @@
       </div>
       <aside class="player2-side">
         <h2 class="player2">Player 2</h2>
-        <div class="score-board" id="score-board-2"></div>
+        <div class="score-board" id="score-board-2">Score: 0</div>
       </aside>
     </section>
 
-    <div id="reset-btn-container"><button type="button" class="btn btn-dark hidden" id="reset-btn">Reset</button></div>
+    <div id="reset-btn-container">
+      <button type="button" class="btn btn-dark hidden" id="reset-btn">
+        Reset
+      </button>
+    </div>
 
     <!-- Bootstrap JS CDN -->
     <script
