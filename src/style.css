@@ -14,6 +14,12 @@ h2 {
   border-bottom: 1px solid black;
 }
 
+aside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .hidden {
   display: none;
 }
@@ -39,6 +45,16 @@ h2 {
 
 .block {
   font-size: xx-large;
+}
+
+.score-board {
+  margin-bottom: 0.5rem;
+}
+
+.token-box {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 #first-row,
