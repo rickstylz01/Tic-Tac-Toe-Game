@@ -28,17 +28,21 @@ const drawBanner = document.querySelector('#win-announce-draw');
 // token boxes
 const player1TokenBox = document.querySelector('#t-box-1');
 const player2TokenBox = document.querySelector('#t-box-2');
-let tokens = [];
 
-const pngFileNames = ['angler-fish.svg', 'cyborg-face.svg', 'glass-heart.svg', 'unlit-bomb.svg', 'winged-sword.svg', 'wyvern.svg'];
+let p1Tokens = ['./assets/player-1-tokens/angler-fish.svg', './assets/player-1-tokens/cyborg-face.svg', './assets/player-1-tokens/glass-heart.svg', './assets/player-1-tokens/unlit-bomb.svg', './assets/player-1-tokens/winged-sword.svg', './assets/player-1-tokens/wyvern.svg', ];
 
-function loadPNGFiles() {
-  pngFileNames.forEach((filename) => {
-    const imagePath = `/assets/${filename}`;
-    tokens.push(imagePath);
+
+
+// creating a div element for each token to set into each players token box div
+p1Tokens.forEach(tokenPath => {
+  let tokenImgDiv = document.createElement('img');
+  tokenImgDiv.setAttribute('src', tokenPath);
+  tokenImgDiv.addEventListener('click', e => {
+
   })
-}
-loadPNGFiles();
+  player1TokenBox.appendChild(tokenImgDiv);
+})
+
 console.log(tokens);
 // toggle between 'X' and 'O' tokens
 function toggleToken() {
@@ -101,14 +105,10 @@ function checkWinner() {
         winningPlayer = player1Div.innerText;
         player1Score++;
         player1ScoreBoard.innerHTML = `Score: ${player1Score}`;
-        // winBannerP1.innerText = `${winningPlayer} Wins!`
-        // winBannerP1.classList.toggle('hidden');
       } else {
         winningPlayer = player2Div.innerText;
         player2Score++;
         player2ScoreBoard.innerHTML = `Score: ${player2Score}`;
-        // winBannerP2.innerText = `${winningPlayer} Wins!`
-        // winBannerP2.classList.toggle('hidden');
       }
 
       // set the winner's name in the modal
