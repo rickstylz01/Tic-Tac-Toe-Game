@@ -5,6 +5,21 @@ let player1Score = 0;
 let player2Score = 0;
 let currentToken = tokenX;
 
+// event listener for player 1 tokens
+const p1Tokens = document.querySelectorAll('#t-box-1 img');
+let player1Token;
+p1Tokens.forEach(tokenEl => {
+  tokenEl.addEventListener('click', (e) => {
+    player1Token = e.target;
+    currentToken = player1Token;
+    console.log(currentToken);
+    disableToken(e);
+  })
+})
+function disableToken(e) {
+  e.target.removeEventListener('click', addEventListener);
+}
+
 // setting player names
 let player1UsrName = prompt("Player 1, what is your name?");
 let player2UsrName = prompt("Player 2, what is your name?");
@@ -29,26 +44,17 @@ const drawBanner = document.querySelector('#win-announce-draw');
 const player1TokenBox = document.querySelector('#t-box-1');
 const player2TokenBox = document.querySelector('#t-box-2');
 
-let p2Tokens = ['./assets/player-2-tokens/cryo-chamber.svg', './assets/player-2-tokens/diamonds-smile.svg', './assets/player-2-tokens/robber.svg', './assets/player-2-tokens/robe.svg', './assets/player-2-tokens/shambling-zombie.svg', './assets/player-2-tokens/triton-head.svg', ];
-
-// generating token img elements and click methods
-
-p2Tokens.forEach(tokenPath => {
-  let tokenImgDiv = document.createElement('img');
-  tokenImgDiv.setAttribute('src', tokenPath);
-  tokenImgDiv.setAttribute('style', 'margin-bottom: 5px');
-  player2TokenBox.appendChild(tokenImgDiv);
-})
-
 // toggle between 'X' and 'O' tokens
 function toggleToken() {
   currentToken = currentToken === tokenX ? tokenO : tokenX;
+  // currentToken = currentToken === player1Token ? tokenO : player1Token;
 }
 
 // if clicked block has no inner text then set it and toggle token
 function addToken(block) {
   if (!block.innerText) {
     block.innerText = currentToken;
+    // block.appendChild(currentToken);
     toggleToken();
   }
 }

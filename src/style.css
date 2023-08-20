@@ -20,6 +20,10 @@ aside {
   align-items: center;
 }
 
+img {
+  margin-bottom: 5px;
+}
+
 .hidden {
   display: none;
 }
