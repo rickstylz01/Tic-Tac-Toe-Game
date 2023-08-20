@@ -16,19 +16,19 @@
 
   <body>
     <h1>Let's Play Tic-Tac-Toe</h1>
-    <!-- Bootstrap winner modal -->
+    <!-- Bootstrap modal -->
     <div
       class="modal fade"
-      id="gameResultModal"
+      id="winnerModal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="gameResultModalLabel"
+      aria-labelledby="winnerModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="gameResultModalLabel">
+            <h5 class="modal-title" id="winnerModalLabel">
               Winner Announcement
             </h5>
           </div>
@@ -49,54 +49,10 @@
         </div>
       </div>
     </div>
-
-    <!-- Bootstrap draw modal -->
-    <div
-      class="modal fade"
-      id="drawModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="drawModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="drawModalLabel">
-              Game Results 
-            </h5>
-          </div>
-          <div class="modal-body">
-            <!-- the winner's name -->
-            <p id="announcement"></p>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-dark"
-              data-bs-dismiss="modal"
-              id="close-btn"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <section class="main-content">
       <aside class="player1-side">
-        <h2 class="player-name-display" id="player1">Player 1</h2>
+        <h2 class="player1">Player 1</h2>
         <div class="score-board" id="score-board-1">Score: 0</div>
-        <div class="token-box" id="t-box-1">
-          Tokens
-          <img src="./assets/player-1-tokens/angler-fish.svg" alt="angler fish token" class="token" data-token="angler-fish">
-          <img src="./assets/player-1-tokens/cyborg-face.svg" alt="cyborg token" class="token" data-token="cyborg-face">
-          <img src="./assets/player-1-tokens/glass-heart.svg" alt="glass heart token" class="token" data-token="glass-heart">
-          <img src="./assets/player-1-tokens/unlit-bomb.svg" alt="unlit bomb token" class="token" data-token="unlit-bomb">
-          <img src="./assets/player-1-tokens/winged-sword.svg" alt="winged sword token" class="token" data-token="winged-sword">
-          <img src="./assets/player-1-tokens/wyvern.svg" alt="wyvern token" class="token" data-token="wyvern">
-        </div>
       </aside>
       <div class="game-board">
         <div class="container-fluid text-center game-rows-container">
@@ -118,17 +74,8 @@
         </div>
       </div>
       <aside class="player2-side">
-        <h2 class="player-name-display" id="player2">Player 2</h2>
+        <h2 class="player2">Player 2</h2>
         <div class="score-board" id="score-board-2">Score: 0</div>
-        <div class="token-box" id="t-box-2">
-          Tokens
-          <img src="./assets/player-2-tokens/cryo-chamber.svg" alt="cryo chamber token" class="token" data-token="cryo-chamber">
-          <img src="./assets/player-2-tokens/diamonds-smile.svg" alt="diamonds smile token" class="token" data-token="diamonds-smile">
-          <img src="./assets/player-2-tokens/robber.svg" alt="robber token" class="token" data-token="robber">
-          <img src="./assets/player-2-tokens/robe.svg" alt="robe token" class="token" data-token="robe">
-          <img src="./assets/player-2-tokens/shambling-zombie.svg" alt="shambling zombie token" class="token" data-token="shambling-zombie">
-          <img src="./assets/player-2-tokens/triton-head.svg" alt="triton head token" class="token" data-token="triton-head">
-        </div>
       </aside>
     </section>
 

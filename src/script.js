@@ -1,92 +1,39 @@
 let gameOver = false;
+const tokenX = "X";
+const tokenO = "O";
 let player1Score = 0;
 let player2Score = 0;
-let player1Token = 'tire-iron-cross';
-let player2Token = 'circle';
-let currentToken = player1Token;
-let selectedToken = false;
+let currentToken = tokenX;
 
 // setting player names
 let player1UsrName = prompt("Player 1, what is your name?");
 let player2UsrName = prompt("Player 2, what is your name?");
 
-const player1Div = document.querySelector("#player1");
-const player2Div = document.querySelector("#player2");
+const player1Div = document.querySelector(".player1");
+const player2Div = document.querySelector(".player2");
 
 // If no username was entered for player 1 or 2, set default username
 player1Div.innerText = !player1UsrName ? "Player 1" : player1UsrName;
 player2Div.innerText = !player2UsrName ? "Player 2" : player2UsrName;
 
-// getting the player score board elements
+// setting initial scores
 const player1ScoreBoard = document.querySelector('#score-board-1');
 const player2ScoreBoard = document.querySelector('#score-board-2');
 
-// token boxes for each player
-const player1TokenBox = document.querySelector('#t-box-1');
-const player2TokenBox = document.querySelector('#t-box-2');
+// winning banner divs
+const winBannerP1 = document.querySelector('#win-announce-p1');
+const winBannerP2 = document.querySelector('#win-announce-p2');
+const drawBanner = document.querySelector('#win-announce-draw');
 
-// token's in token boxes for each player
-const p1Tokens = document.querySelectorAll('#t-box-1 img');
-const p2Tokens = document.querySelectorAll('#t-box-2 img');
-
-
-// adding event handler for each token to select it for player 1
-p1Tokens.forEach(tokenEl => {
-  tokenEl.addEventListener('click', () => {
-    // setting the player1 token to the value of the data-token attribute
-    player1Token = tokenEl.getAttribute('data-token');
-
-    // remove style class from other tokens
-    p1Tokens.forEach(p1Token => {
-      p1Token.classList.remove('p1-selected');
-    })
-    // add style class to highlight selected token
-    tokenEl.classList.add('p1-selected');
-  })
-})
-
-// adding event handler for each token to select it for player 2
-p2Tokens.forEach(tokenEl => {
-  tokenEl.addEventListener('click', () => {
-    // setting the player2 token to the value of the data-token attribute
-    player2Token = tokenEl.getAttribute('data-token');
-
-    // remove style class from other tokens
-    p2Tokens.forEach(p2Token => {
-      p2Token.classList.remove('p2-selected');
-    })
-    // add style class to highlight selected token
-    tokenEl.classList.add('p2-selected');
-  })
-})
-
-// toggle between player 1 and 2 tokens
+// toggle between 'X' and 'O' tokens
 function toggleToken() {
-  currentToken = currentToken === player1Token ? player2Token : player1Token;
+  currentToken = currentToken === tokenX ? tokenO : tokenX;
 }
 
-// if clicked block has no inner img element then create and set it and toggle token
-// 
+// if clicked block has no inner text then set it and toggle token
 function addToken(block) {
-  if (!block.querySelector('img')) {
-    const tokenImage = document.createElement('img');
-    tokenImage.setAttribute('data', currentToken);
-    
-    // setting the current token to player 1's token for first move
-    if (!selectedToken) {
-      currentToken = player1Token
-      selectedToken = true;
-    }
-
-    // if the current token is set to player 1 then look in the player 1 token directory
-    if (currentToken === player1Token) {
-      tokenImage.src = `./assets/player-1-tokens/${currentToken}.svg`
-    } else {
-      // or else look in player 2's directory
-      tokenImage.src = `./assets/player-2-tokens/${currentToken}.svg`
-    }
-
-    block.appendChild(tokenImage);
+  if (!block.innerText) {
+    block.innerText = currentToken;
     toggleToken();
   }
 }
@@ -101,6 +48,7 @@ function handleBlockClick(event) {
 
     const winner = checkWinner();
     if (winner) {
+      // alert(`${winner} wins!`);
       gameOver = true;
       resetBtn.classList.toggle("hidden");
     }
@@ -121,43 +69,39 @@ function checkWinner() {
 
   for (let i = 0; i < winningCombinations.length; i++) {
     const combination = winningCombinations[i]; //[2, 4, 6]
-    // saving each element in the current combination array to it's own variable
+    // saving each element within the current iteration of the combination array to it's own variable
     const blockId0 = combination[0]; // 2
     const blockId1 = combination[1]; // 4
     const blockId2 = combination[2]; // 6
 
-    // getting the image inside each block being checked
-    const img0 = gameBoard[blockId0].querySelector('img');
-    const img1 = gameBoard[blockId1].querySelector('img');
-    const img2 = gameBoard[blockId2].querySelector('img');
+    const theresAWinner =
+      gameBoard[blockId0].innerText &&
+      gameBoard[blockId0].innerText === gameBoard[blockId1].innerText &&
+      gameBoard[blockId0].innerText === gameBoard[blockId2].innerText;
 
-    // saving the boolean to a variable if all of the img src attributes are present and match
-    const theresAWinner = img0 && img1 && img2 &&
-     img0.src === img1.src && img0.src === img2.src;
-
-    // if a winning combo was found, increment that players score and display winners name
     if (theresAWinner) {
       let winningPlayer;
 
-      if (img0.getAttribute('data') === player1Token) {
+      if (gameBoard[blockId0].innerText === tokenX) {
         winningPlayer = player1Div.innerText;
         player1Score++;
         player1ScoreBoard.innerHTML = `Score: ${player1Score}`;
+        // winBannerP1.innerText = `${winningPlayer} Wins!`
+        // winBannerP1.classList.toggle('hidden');
       } else {
         winningPlayer = player2Div.innerText;
         player2Score++;
         player2ScoreBoard.innerHTML = `Score: ${player2Score}`;
+        // winBannerP2.innerText = `${winningPlayer} Wins!`
+        // winBannerP2.classList.toggle('hidden');
       }
-
-      // game results modal
-//const gameResultModal = document.querySelector('#gameResultModal');
-
+      
       // set the winner's name in the modal
       const modalWinnerName = document.getElementById('modalWinnerName');
       modalWinnerName.innerText = `${winningPlayer} Wins!`;
 
       // show the modal
-      const winnerModal = new bootstrap.Modal(document.querySelector('#gameResultModal'));
+      const winnerModal = new bootstrap.Modal(document.getElementById('winnerModal'));
       winnerModal.show();      
 
       return winningPlayer;
@@ -169,18 +113,15 @@ function checkWinner() {
 function findDraw() {
   let allMoves = 0;
   gameBoard.forEach((block) => {
-    if (block.querySelector('img')) {
+    if (block.innerText !== "") {
       allMoves++;
     }
   });
-  //if allMoves equals 9 (without finding a winner) then game is a tie
+  //if allMoves equals 9 (and a winner is not found)
   if (allMoves === 9) {
-    const drawAnnouncementDiv = document.querySelector('#announcement');
-    drawAnnouncementDiv.innerText = 'Tie Game';
-
-    const drawModal = new bootstrap.Modal(document.querySelector('#drawModal'));
-    drawModal.show();
-    
+    // alert("DRAW");
+    drawBanner.innerHTML = 'DRAW';
+    drawBanner.classList.toggle('hidden');
     gameOver = true;
     resetBtn.classList.toggle("hidden");
   }
@@ -196,8 +137,7 @@ gameBoard.forEach((block) => {
 const resetBtn = document.querySelector("#reset-btn");
 resetBtn.addEventListener("click", () => {
   gameOver = false;
-  // currentToken = tokenX;
-  selectedToken = false;
+  currentToken = tokenX;
   gameBoard.forEach((block) => (block.innerText = ""));
   resetBtn.classList.toggle("hidden");
 
@@ -209,4 +149,3 @@ resetBtn.addEventListener("click", () => {
   player1Div.innerText = !player1UsrName ? "Player 1" : player1UsrName;
   player2Div.innerText = !player2UsrName ? "Player 2" : player2UsrName;
 });
-
