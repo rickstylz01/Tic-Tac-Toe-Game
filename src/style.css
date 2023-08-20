@@ -63,6 +63,10 @@ img {
   flex-direction: column;
 }
 
+.p1-selected {
+  border: 2px solid dodgerblue;
+}
+
 #first-row,
 #second-row {
   border-bottom: 2px solid black;

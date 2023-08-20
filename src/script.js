@@ -3,22 +3,24 @@ const tokenX = "X";
 const tokenO = "O";
 let player1Score = 0;
 let player2Score = 0;
-let currentToken = tokenX;
+//let currentToken = tokenX;
 
 // event listener for player 1 tokens
 const p1Tokens = document.querySelectorAll('#t-box-1 img');
 let player1Token;
+
 p1Tokens.forEach(tokenEl => {
-  tokenEl.addEventListener('click', (e) => {
-    player1Token = e.target;
-    currentToken = player1Token;
-    console.log(currentToken);
-    disableToken(e);
+  tokenEl.addEventListener('click', () => {
+    player1Token = tokenEl.getAttribute('data-token');
+
+    // remove style class from other tokens
+    p1Tokens.forEach(p1Token => {
+      p1Token.classList.remove('p1-selected');
+    })
+    // add class to highlight selected token
+    tokenEl.classList.add('p1-selected');
   })
 })
-function disableToken(e) {
-  e.target.removeEventListener('click', addEventListener);
-}
 
 // setting player names
 let player1UsrName = prompt("Player 1, what is your name?");
@@ -46,15 +48,15 @@ const player2TokenBox = document.querySelector('#t-box-2');
 
 // toggle between 'X' and 'O' tokens
 function toggleToken() {
-  currentToken = currentToken === tokenX ? tokenO : tokenX;
-  // currentToken = currentToken === player1Token ? tokenO : player1Token;
+  //currentToken = currentToken === tokenX ? tokenO : tokenX;
+  currentToken = currentToken === player1Token ? tokenO : player1Token;
 }
 
 // if clicked block has no inner text then set it and toggle token
 function addToken(block) {
   if (!block.innerText) {
     block.innerText = currentToken;
-    // block.appendChild(currentToken);
+    block.appendChild(currentToken);
     toggleToken();
   }
 }
@@ -69,7 +71,6 @@ function handleBlockClick(event) {
 
     const winner = checkWinner();
     if (winner) {
-      // alert(`${winner} wins!`);
       gameOver = true;
       resetBtn.classList.toggle("hidden");
     }
