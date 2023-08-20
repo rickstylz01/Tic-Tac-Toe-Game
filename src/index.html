@@ -16,7 +16,7 @@
 
   <body>
     <h1>Let's Play Tic-Tac-Toe</h1>
-    <!-- Bootstrap modal -->
+    <!-- Bootstrap winner modal -->
     <div
       class="modal fade"
       id="gameResultModal"
@@ -35,6 +35,40 @@
           <div class="modal-body">
             <!-- the winner's name -->
             <p id="modalWinnerName"></p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-dark"
+              data-bs-dismiss="modal"
+              id="close-btn"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap draw modal -->
+    <div
+      class="modal fade"
+      id="drawModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="drawModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="drawModalLabel">
+              Game Results 
+            </h5>
+          </div>
+          <div class="modal-body">
+            <!-- the winner's name -->
+            <p id="announcement"></p>
           </div>
           <div class="modal-footer">
             <button

@@ -4,6 +4,7 @@ let player2Score = 0;
 let player1Token = 'tire-iron-cross';
 let player2Token = 'circle';
 let currentToken = player1Token;
+let selectedToken = false;
 
 // setting player names
 let player1UsrName = prompt("Player 1, what is your name?");
@@ -71,12 +72,18 @@ function addToken(block) {
     const tokenImage = document.createElement('img');
     tokenImage.setAttribute('data', currentToken);
     
-    const tokenToPlace = currentToken;
+    // setting the current token to player 1's token for first move
+    if (!selectedToken) {
+      currentToken = player1Token
+      selectedToken = true;
+    }
 
+    // if the current token is set to player 1 then look in the player 1 token directory
     if (currentToken === player1Token) {
-      tokenImage.src = `./assets/player-1-tokens/${tokenToPlace}.svg`
+      tokenImage.src = `./assets/player-1-tokens/${currentToken}.svg`
     } else {
-      tokenImage.src = `./assets/player-2-tokens/${tokenToPlace}.svg`
+      // or else look in player 2's directory
+      tokenImage.src = `./assets/player-2-tokens/${currentToken}.svg`
     }
 
     block.appendChild(tokenImage);
@@ -99,9 +106,6 @@ function handleBlockClick(event) {
     }
   }
 }
-
-// game results modal
-const gameResultModal = document.querySelector('#gameResultModal');
 
 function checkWinner() {
   const winningCombinations = [
@@ -128,8 +132,10 @@ function checkWinner() {
     const img2 = gameBoard[blockId2].querySelector('img');
 
     // saving the boolean to a variable if all of the img src attributes are present and match
-    const theresAWinner = img0 && img1 && img2 && img0.src === img1.src && img0.src === img2.src;
+    const theresAWinner = img0 && img1 && img2 &&
+     img0.src === img1.src && img0.src === img2.src;
 
+    // if a winning combo was found, increment that players score and display winners name
     if (theresAWinner) {
       let winningPlayer;
 
@@ -143,13 +149,16 @@ function checkWinner() {
         player2ScoreBoard.innerHTML = `Score: ${player2Score}`;
       }
 
+      // game results modal
+//const gameResultModal = document.querySelector('#gameResultModal');
+
       // set the winner's name in the modal
       const modalWinnerName = document.getElementById('modalWinnerName');
       modalWinnerName.innerText = `${winningPlayer} Wins!`;
 
       // show the modal
-      const gameResultModal = new bootstrap.Modal(document.querySelector('#gameResultModal'));
-      gameResultModal.show();      
+      const winnerModal = new bootstrap.Modal(document.querySelector('#gameResultModal'));
+      winnerModal.show();      
 
       return winningPlayer;
     }
@@ -164,15 +173,14 @@ function findDraw() {
       allMoves++;
     }
   });
-  //if allMoves equals 9 (and a winner is not found)
+  //if allMoves equals 9 (without finding a winner) then game is a tie
   if (allMoves === 9) {
-    gameResultModal.innerText = 'Tie Game';
+    const drawAnnouncementDiv = document.querySelector('#announcement');
+    drawAnnouncementDiv.innerText = 'Tie Game';
 
-    const drawModal = new bootstrap.Modal(document.querySelector('#gameResultModal'));
+    const drawModal = new bootstrap.Modal(document.querySelector('#drawModal'));
     drawModal.show();
     
-    // drawBanner.innerHTML = 'DRAW';
-    //drawBanner.classList.toggle('hidden');
     gameOver = true;
     resetBtn.classList.toggle("hidden");
   }
@@ -188,7 +196,8 @@ gameBoard.forEach((block) => {
 const resetBtn = document.querySelector("#reset-btn");
 resetBtn.addEventListener("click", () => {
   gameOver = false;
-  currentToken = tokenX;
+  // currentToken = tokenX;
+  selectedToken = false;
   gameBoard.forEach((block) => (block.innerText = ""));
   resetBtn.classList.toggle("hidden");
 
