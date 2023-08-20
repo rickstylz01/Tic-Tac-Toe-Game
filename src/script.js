@@ -22,6 +22,22 @@ p1Tokens.forEach(tokenEl => {
   })
 })
 
+const p2Tokens = document.querySelectorAll('#t-box-2 img');
+let player2Token;
+
+p2Tokens.forEach(tokenEl => {
+  tokenEl.addEventListener('click', () => {
+    player1Token = tokenEl.getAttribute('data-token');
+
+    // remove style class from other tokens
+    p2Tokens.forEach(p2Token => {
+      p2Token.classList.remove('p2-selected');
+    })
+    // add class to highlight selected token
+    tokenEl.classList.add('p2-selected');
+  })
+})
+
 // setting player names
 let player1UsrName = prompt("Player 1, what is your name?");
 let player2UsrName = prompt("Player 2, what is your name?");

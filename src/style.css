@@ -67,6 +67,10 @@ img {
   border: 2px solid dodgerblue;
 }
 
+.p2-selected {
+  border: 2px solid red;
+}
+
 #first-row,
 #second-row {
   border-bottom: 2px solid black;
