@@ -51,6 +51,7 @@ function handleBlockClick(event) {
 
     // start timere when block is clicked
     clearInterval(timer);
+    setTime = 6;
     timer = startTimer();
   }
 }
