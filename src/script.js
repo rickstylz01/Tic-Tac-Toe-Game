@@ -7,8 +7,8 @@ let currentToken = tokenX;
 let setTime = 6;
 
 // setting player names
-let player1UsrName = prompt("Player 1, what is your name?");
-let player2UsrName = prompt("Player 2, what is your name?");
+// let player1UsrName = prompt("Player 1, what is your name?");
+// let player2UsrName = prompt("Player 2, what is your name?");
 
 const player1Div = document.querySelector(".player1");
 const player2Div = document.querySelector(".player2");
