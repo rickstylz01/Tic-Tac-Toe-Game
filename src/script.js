@@ -75,7 +75,7 @@ let timer;
 
 // get footer element
 const footerOptions = document.querySelector('footer');
-function gameOptionsDisplay() {
+function toggleGameOptions() {
   footerOptions.classList.toggle('hidden');
 }
 
@@ -107,7 +107,7 @@ function checkWinner() {
     if (theresAWinner) {
       awardWinningPlayer(gameBoard[blockId0].innerText);
       displayWinModal(winningPlayer);  
-      gameOptionsDisplay();
+      toggleGameOptions();
       return winningPlayer;
     }
   }
@@ -176,7 +176,7 @@ function findDraw() {
   //if allMoves equals 9 (and a winner was not found)
   if (allMoves === 9) {
     displayDrawModal();
-    gameOptionsDisplay()
+    toggleGameOptions()
     gameOver = true;
   }
 }
@@ -185,6 +185,7 @@ function findDraw() {
 const gameBoard = document.querySelectorAll(".block");
 gameBoard.forEach((block) => {
   block.addEventListener("click", handleBlockClick);
+  block.style.cursor = 'pointer';
 });
 
 // reset function
@@ -210,6 +211,17 @@ resetBtn.addEventListener("click", () => {
   // update player names 
   player1Div.innerText = !player1UsrName ? "Player 1" : player1UsrName;
   player2Div.innerText = !player2UsrName ? "Player 2" : player2UsrName;
-  gameOptionsDisplay();
+  toggleGameOptions();
+});
+
+const continueBtn = document.querySelector('#continue-btn');
+continueBtn.addEventListener('click', () => {
+  clearInterval(timer);
+  gameOver = false;
+  setTime = 6;
+  currentToken = tokenX;
+  gameBoard.forEach(block => block.innerText = "");
+  document.querySelector('#countdown').innerText = '';
+  toggleGameOptions();
 });
 
