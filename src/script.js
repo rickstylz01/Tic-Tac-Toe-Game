@@ -56,19 +56,6 @@ function handleBlockClick(event) {
 }
 
 let winningPlayer;
-// award winner depending on what the element is equal to
-function awardWinningPlayer(element) {
-  if (element === tokenX) {
-    winningPlayer = player1Div.innerText;
-    player1Score++;
-    player1ScoreBoard.innerHTML = `Score: ${player1Score}`;
-  } else {
-    winningPlayer = player2Div.innerText;
-    player2Score++;
-    player2ScoreBoard.innerHTML = `Score: ${player2Score}`;
-  }
-}
-
 function checkWinner() {
   const winningCombinations = [
     [0, 1, 2],
@@ -95,19 +82,43 @@ function checkWinner() {
 
     if (theresAWinner) {
       awardWinningPlayer(gameBoard[blockId0].innerText);
+      displayWinModal(winningPlayer);
       
-      // set the winner's name in the modal
-      const modalWinnerName = document.getElementById('modalWinnerName');
-      modalWinnerName.innerText = `${winningPlayer} Wins!`;
+      // // set the winner's name in the modal
+      // const modalWinnerName = document.getElementById('modalWinnerName');
+      // modalWinnerName.innerText = `${winningPlayer} Wins!`;
 
-      // show the modal
-      const winnerModal = new bootstrap.Modal(document.getElementById('winnerModal'));
-      winnerModal.show();      
+      // // show the modal
+      // const winnerModal = new bootstrap.Modal(document.getElementById('winnerModal'));
+      // winnerModal.show();      
 
       return winningPlayer;
     }
   }
   findDraw();
+}
+
+// award winner depending on what the element is equal to
+function awardWinningPlayer(element) {
+  if (element === tokenX) {
+    winningPlayer = player1Div.innerText;
+    player1Score++;
+    player1ScoreBoard.innerHTML = `Score: ${player1Score}`;
+  } else {
+    winningPlayer = player2Div.innerText;
+    player2Score++;
+    player2ScoreBoard.innerHTML = `Score: ${player2Score}`;
+  }
+}
+
+function displayWinModal(winningPlayer) {
+  // set the winner's name in the modal
+  const modalWinnerName = document.getElementById('modalWinnerName');
+  modalWinnerName.innerText = `${winningPlayer} Wins!`;
+  
+  // show the modal
+  const winnerModal = new bootstrap.Modal(document.getElementById('winnerModal'));
+  winnerModal.show();  
 }
 
 // 
