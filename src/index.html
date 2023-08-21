@@ -19,7 +19,7 @@
 
     <p id="countdown"></p>
 
-    <!-- Bootstrap modal -->
+    <!-- Winners modal -->
     <div
       class="modal fade"
       id="winnerModal"
@@ -30,16 +30,20 @@
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="winnerModalLabel">
-              Winner Announcement
-            </h5>
-          </div>
           <div class="modal-body">
             <!-- the winner's name -->
             <p id="modalWinnerName"></p>
           </div>
           <div class="modal-footer">
+            <p>Would you like to start a new game?</p>
+            <button
+              type="button"
+              class="btn btn-dark"
+              data-bs-dismiss="modal"
+              id="reset-btn"
+            >
+              Reset
+            </button>
             <button
               type="button"
               class="btn btn-dark"
@@ -52,6 +56,82 @@
         </div>
       </div>
     </div>
+    
+    <!-- Draw modal -->
+    <div
+      class="modal fade"
+      id="drawModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="drawModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p id="modaldrawName">Draw Game</p>
+          </div>
+          <div class="modal-footer">
+            <p>Would you like to start a new game?</p>
+            <button
+              type="button"
+              class="btn btn-dark"
+              data-bs-dismiss="modal"
+              id="reset-btn"
+            >
+              Reset
+            </button>
+            <button
+              type="button"
+              class="btn btn-dark"
+              data-bs-dismiss="modal"
+              id="close-btn"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Losers modal -->
+    <div
+      class="modal fade"
+      id="loserModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="loserModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <!-- the loser's name -->
+            <p id="modalLoserName"></p>
+          </div>
+          <div class="modal-footer">
+            <p>Would you like to start a new game?</p>
+            <button
+              type="button"
+              class="btn btn-dark"
+              data-bs-dismiss="modal"
+              id="reset-btn"
+            >
+              Reset
+            </button>
+            <button
+              type="button"
+              class="btn btn-dark"
+              data-bs-dismiss="modal"
+              id="close-btn"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <section class="main-content">
       <aside class="player1-side">
         <h2 class="player1">Player 1</h2>
@@ -81,12 +161,6 @@
         <div class="score-board" id="score-board-2">Score: 0</div>
       </aside>
     </section>
-
-    <div id="reset-btn-container">
-      <button type="button" class="btn btn-dark hidden" id="reset-btn">
-        Reset
-      </button>
-    </div>
 
     <!-- Bootstrap JS CDN -->
     <script

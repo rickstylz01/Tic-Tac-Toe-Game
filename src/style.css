@@ -55,20 +55,8 @@ img {
   margin-bottom: 0.5rem;
 }
 
-.token-box {
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-}
-
-.p1-selected {
-  border: 2px solid dodgerblue;
-}
-
-.p2-selected {
-  border: 2px solid red;
+.modal-footer p {
+  margin: auto;
 }
 
 #countdown {
@@ -92,14 +80,4 @@ img {
 #second-row div:nth-child(1),
 #third-row div:nth-child(1) {
   border-right: 2px solid black;
-}
-
-#reset-btn-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 100px;
-}
-
-#reset-btn {
-  width: 115px;
 }

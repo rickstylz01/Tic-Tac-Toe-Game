@@ -50,7 +50,6 @@ function handleBlockClick(event) {
     if (winner) {
       // alert(`${winner} wins!`);
       gameOver = true;
-      resetBtn.classList.toggle("hidden");
     }
   }
 }
@@ -82,15 +81,7 @@ function checkWinner() {
 
     if (theresAWinner) {
       awardWinningPlayer(gameBoard[blockId0].innerText);
-      displayWinModal(winningPlayer);
-      
-      // // set the winner's name in the modal
-      // const modalWinnerName = document.getElementById('modalWinnerName');
-      // modalWinnerName.innerText = `${winningPlayer} Wins!`;
-
-      // // show the modal
-      // const winnerModal = new bootstrap.Modal(document.getElementById('winnerModal'));
-      // winnerModal.show();      
+      displayWinModal(winningPlayer);  
 
       return winningPlayer;
     }
@@ -98,15 +89,28 @@ function checkWinner() {
   findDraw();
 }
 
-// award winner depending on what the element is equal to
-function awardWinningPlayer(element) {
-  if (element === tokenX) {
+// award winner depending on what the token value is
+function awardWinningPlayer(token) {
+  if (token === tokenX) {
     winningPlayer = player1Div.innerText;
     player1Score++;
     player1ScoreBoard.innerHTML = `Score: ${player1Score}`;
   } else {
     winningPlayer = player2Div.innerText;
     player2Score++;
+    player2ScoreBoard.innerHTML = `Score: ${player2Score}`;
+  }
+}
+
+// penalize player by decreasing score count
+function playerPenalty(token) {
+  if (token === tokenX) {
+    penaltyPlayer = player1Div.innerText;
+    player1Score--;
+    player1ScoreBoard.innerHTML = `Score: ${player1Score}`;
+  } else {
+    penaltyPlayer = player2Div.innerText;
+    player2Score--;
     player2ScoreBoard.innerHTML = `Score: ${player2Score}`;
   }
 }
@@ -121,18 +125,6 @@ function displayWinModal(winningPlayer) {
   winnerModal.show();  
 }
 
-// 
-let timer = setInterval(function() {
-  if (setTime <= 0) {
-    clearInterval(timer);
-    document.querySelector('#countdown').innerText = 'Times Up';
-    awardWinningPlayer(currentToken);
-  } else {
-    document.querySelector('#countdown').innerText = `${currentToken === tokenX ? player1Div.innerText : player2Div.innerText}'s turn - 00:0${setTime}`;
-  }
-  setTime -= 1;
-}, 1000);
-
 function findDraw() {
   let allMoves = 0;
   gameBoard.forEach((block) => {
@@ -140,15 +132,26 @@ function findDraw() {
       allMoves++;
     }
   });
-  //if allMoves equals 9 (and a winner is not found)
+  //if allMoves equals 9 (and a winner was not found)
   if (allMoves === 9) {
     // alert("DRAW");
     drawBanner.innerHTML = 'DRAW';
-    drawBanner.classList.toggle('hidden');
     gameOver = true;
-    resetBtn.classList.toggle("hidden");
   }
 }
+
+//stackoverflow topic on creating a countdown timer(https://stackoverflow.com/questions/31106189/create-a-simple-10-second-countdown)
+let timer = setInterval(function() {
+  if (setTime <= 0) {
+    clearInterval(timer);
+    document.querySelector('#countdown').innerText = 'Times Up';
+    playerPenalty(currentToken);
+    
+  } else {
+    document.querySelector('#countdown').innerText = `${currentToken === tokenX ? player1Div.innerText : player2Div.innerText}'s turn - 00:0${setTime}`;
+  }
+  setTime -= 1;
+}, 1000);
 
 //gets all the blocks from the gameboard and adds event listener
 const gameBoard = document.querySelectorAll(".block");
@@ -163,7 +166,6 @@ resetBtn.addEventListener("click", () => {
   setTime = 10;
   currentToken = tokenX;
   gameBoard.forEach((block) => (block.innerText = ""));
-  resetBtn.classList.toggle("hidden");
 
   // prompt for player usernames again
   player1UsrName = prompt("Player 1, what is your name?");
@@ -173,3 +175,5 @@ resetBtn.addEventListener("click", () => {
   player1Div.innerText = !player1UsrName ? "Player 1" : player1UsrName;
   player2Div.innerText = !player2UsrName ? "Player 2" : player2UsrName;
 });
+
+// play again function
