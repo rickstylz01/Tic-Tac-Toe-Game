@@ -24,11 +24,6 @@ player2Div.innerText = !player2UsrName ? "Player 2" : player2UsrName;
 const player1ScoreBoard = document.querySelector('#score-board-1');
 const player2ScoreBoard = document.querySelector('#score-board-2');
 
-// winning banner divs
-const winBannerP1 = document.querySelector('#win-announce-p1');
-const winBannerP2 = document.querySelector('#win-announce-p2');
-const drawBanner = document.querySelector('#win-announce-draw');
-
 // toggle between 'X' and 'O' tokens
 function toggleToken() {
   currentToken = currentToken === tokenX ? tokenO : tokenX;
@@ -61,6 +56,7 @@ function handleBlockClick(event) {
 }
 
 let winningPlayer;
+// award winner depending on what the element is equal to
 function awardWinningPlayer(element) {
   if (element === tokenX) {
     winningPlayer = player1Div.innerText;
@@ -114,13 +110,14 @@ function checkWinner() {
   findDraw();
 }
 
+// 
 let timer = setInterval(function() {
   if (setTime <= 0) {
     clearInterval(timer);
     document.querySelector('#countdown').innerText = 'Times Up';
     awardWinningPlayer(currentToken);
   } else {
-    document.querySelector('#countdown').innerText = `00:0${setTime}`;
+    document.querySelector('#countdown').innerText = `${currentToken === tokenX ? player1Div.innerText : player2Div.innerText}'s turn - 00:0${setTime}`;
   }
   setTime -= 1;
 }, 1000);
@@ -152,6 +149,7 @@ gameBoard.forEach((block) => {
 const resetBtn = document.querySelector("#reset-btn");
 resetBtn.addEventListener("click", () => {
   gameOver = false;
+  setTime = 10;
   currentToken = tokenX;
   gameBoard.forEach((block) => (block.innerText = ""));
   resetBtn.classList.toggle("hidden");
