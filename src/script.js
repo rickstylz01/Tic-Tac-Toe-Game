@@ -4,6 +4,10 @@ const tokenO = "O";
 let player1Score = 0;
 let player2Score = 0;
 let currentToken = tokenX;
+let setTime = 10;
+
+
+
 
 // setting player names
 let player1UsrName = prompt("Player 1, what is your name?");
@@ -28,6 +32,7 @@ const drawBanner = document.querySelector('#win-announce-draw');
 // toggle between 'X' and 'O' tokens
 function toggleToken() {
   currentToken = currentToken === tokenX ? tokenO : tokenX;
+  setTime = 10;
 }
 
 // if clicked block has no inner text then set it and toggle token
@@ -52,6 +57,19 @@ function handleBlockClick(event) {
       gameOver = true;
       resetBtn.classList.toggle("hidden");
     }
+  }
+}
+
+let winningPlayer;
+function awardWinningPlayer(element) {
+  if (element === tokenX) {
+    winningPlayer = player1Div.innerText;
+    player1Score++;
+    player1ScoreBoard.innerHTML = `Score: ${player1Score}`;
+  } else {
+    winningPlayer = player2Div.innerText;
+    player2Score++;
+    player2ScoreBoard.innerHTML = `Score: ${player2Score}`;
   }
 }
 
@@ -80,21 +98,7 @@ function checkWinner() {
       gameBoard[blockId0].innerText === gameBoard[blockId2].innerText;
 
     if (theresAWinner) {
-      let winningPlayer;
-
-      if (gameBoard[blockId0].innerText === tokenX) {
-        winningPlayer = player1Div.innerText;
-        player1Score++;
-        player1ScoreBoard.innerHTML = `Score: ${player1Score}`;
-        // winBannerP1.innerText = `${winningPlayer} Wins!`
-        // winBannerP1.classList.toggle('hidden');
-      } else {
-        winningPlayer = player2Div.innerText;
-        player2Score++;
-        player2ScoreBoard.innerHTML = `Score: ${player2Score}`;
-        // winBannerP2.innerText = `${winningPlayer} Wins!`
-        // winBannerP2.classList.toggle('hidden');
-      }
+      awardWinningPlayer(gameBoard[blockId0].innerText);
       
       // set the winner's name in the modal
       const modalWinnerName = document.getElementById('modalWinnerName');
@@ -109,6 +113,17 @@ function checkWinner() {
   }
   findDraw();
 }
+
+let timer = setInterval(function() {
+  if (setTime <= 0) {
+    clearInterval(timer);
+    document.querySelector('#countdown').innerText = 'Times Up';
+    awardWinningPlayer(currentToken);
+  } else {
+    document.querySelector('#countdown').innerText = `00:0${setTime}`;
+  }
+  setTime -= 1;
+}, 1000);
 
 function findDraw() {
   let allMoves = 0;

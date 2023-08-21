@@ -6,7 +6,7 @@ body {
 
 h1 {
   margin: auto;
-  margin-bottom: 150px;
+  margin-bottom: 75px;
   border-bottom: 2px solid black;
 }
 
@@ -69,6 +69,11 @@ img {
 
 .p2-selected {
   border: 2px solid red;
+}
+
+#countdown {
+  align-self: center;
+  margin-bottom: 90px;
 }
 
 #first-row,
