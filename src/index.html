@@ -19,7 +19,7 @@
       <h1>Let's Play Tic-Tac-Toe</h1>
     </div>
 
-    <p id="countdown"></p>
+    <p id="countdown" class="hidden"></p>
 
     <!-- Winners modal -->
     <div
@@ -108,10 +108,16 @@
     </div>
 
     <section class="main-content">
-      <aside class="player1-side">
-        <h2 class="player1">Player 1</h2>
-        <div class="score-board" id="score-board-1">Score: 0</div>
-      </aside>
+      <div class="container-fluid" id="score-container">
+        <div id="player1-side" class="score-keeper">
+          <h2 class="player1">Player 1</h2>
+          <div class="score-board" id="score-board-1">Score: 0</div>
+        </div>
+        <div id="player2-side" class="score-keeper">
+          <h2 class="player2">Player 2</h2>
+          <div class="score-board" id="score-board-2">Score: 0</div>
+        </div>
+      </div>
       <div class="game-board">
         <div class="container-fluid text-center game-rows-container">
           <div class="row" id="first-row">
@@ -131,17 +137,12 @@
           </div>
         </div>
       </div>
-      <aside class="player2-side">
-        <h2 class="player2">Player 2</h2>
-        <div class="score-board" id="score-board-2">Score: 0</div>
-      </aside>
     </section>
 
     <footer class="hidden">
-      <p>Would you like to start a new game?</p>
-      <button type="button" class="btn btn-dark" id="reset-btn">Reset</button>
+      <button type="button" class="btn btn-dark" id="reset-btn">New Game</button>
       <button type="button" class="btn btn-dark" id="continue-btn">
-        Continue Game
+        Continue
       </button>
     </footer>
 

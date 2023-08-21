@@ -4,11 +4,12 @@ const tokenO = "O";
 let player1Score = 0;
 let player2Score = 0;
 let currentToken = tokenX;
+let timerHidden = true;
 let setTime = 6;
 
 // setting player names
-// let player1UsrName = prompt("Player 1, what is your name?");
-// let player2UsrName = prompt("Player 2, what is your name?");
+let player1UsrName = prompt("Player 1, what is your name?");
+let player2UsrName = prompt("Player 2, what is your name?");
 
 const player1Div = document.querySelector(".player1");
 const player2Div = document.querySelector(".player2");
@@ -45,8 +46,12 @@ function handleBlockClick(event) {
     
     const winner = checkWinner();
     if (winner) {
-      // alert(`${winner} wins!`);
       gameOver = true;
+    }
+    
+    if (timerHidden) {
+      timerHidden = false;
+      document.querySelector('#countdown').classList.remove('hidden');
     }
 
     // start timere when block is clicked
@@ -61,6 +66,7 @@ function startTimer() {
   return setInterval(function() {
     if (setTime <= 0) {
       clearInterval(timer);
+      gameOver = true;
       document.querySelector('#countdown').innerText = 'Times Up';
       playerPenalty(currentToken);
       displayLoseModal(currentToken);
@@ -151,6 +157,8 @@ function displayWinModal(winningPlayer) {
 }
 
 function displayLoseModal(losingPlayer) {
+  clearInterval(timer);
+  gameOver = true;
   // set the loser's name in the modal
   const modalLoserName = document.getElementById('modalLoserName');
   modalLoserName.innerText = `${losingPlayer === tokenX ? player1Div.innerText : player2Div.innerText} Lost!`;
