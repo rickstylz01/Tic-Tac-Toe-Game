@@ -45,12 +45,15 @@ function handleBlockClick(event) {
     const clickedBlock = event.target;
 
     addToken(clickedBlock);
-
+    
     const winner = checkWinner();
     if (winner) {
       // alert(`${winner} wins!`);
       gameOver = true;
     }
+
+    clearInterval(timer);
+    timer = startTimer();
   }
 }
 
@@ -125,6 +128,16 @@ function displayWinModal(winningPlayer) {
   winnerModal.show();  
 }
 
+function displayLoseModal(losingPlayer) {
+  // set the loser's name in the modal
+  const modalLoserName = document.getElementById('modalLoserName');
+  modalLoserName.innerText = `${losingPlayer === tokenX ? player1Div.innerText : player2Div.innerText} Lost!`;
+  
+  // show the modal
+  const losingModal = new bootstrap.Modal(document.getElementById('loserModal'));
+  losingModal.show();  
+}
+
 function findDraw() {
   let allMoves = 0;
   gameBoard.forEach((block) => {
@@ -141,17 +154,20 @@ function findDraw() {
 }
 
 //stackoverflow topic on creating a countdown timer(https://stackoverflow.com/questions/31106189/create-a-simple-10-second-countdown)
-let timer = setInterval(function() {
-  if (setTime <= 0) {
-    clearInterval(timer);
-    document.querySelector('#countdown').innerText = 'Times Up';
-    playerPenalty(currentToken);
-    
-  } else {
-    document.querySelector('#countdown').innerText = `${currentToken === tokenX ? player1Div.innerText : player2Div.innerText}'s turn - 00:0${setTime}`;
-  }
-  setTime -= 1;
-}, 1000);
+function startTimer() {
+  return setInterval(function() {
+    if (setTime <= 0) {
+      clearInterval(timer);
+      document.querySelector('#countdown').innerText = 'Times Up';
+      playerPenalty(currentToken);
+      displayLoseModal(currentToken)
+    } else {
+      document.querySelector('#countdown').innerText = `${currentToken === tokenX ? player1Div.innerText : player2Div.innerText}'s turn - 00:0${setTime}`;
+    }
+    setTime -= 1;
+  }, 1000);
+}
+let timer = startTimer();
 
 //gets all the blocks from the gameboard and adds event listener
 const gameBoard = document.querySelectorAll(".block");
@@ -162,8 +178,13 @@ gameBoard.forEach((block) => {
 // reset function
 const resetBtn = document.querySelector("#reset-btn");
 resetBtn.addEventListener("click", () => {
+  // clear the existing timer interval
+  clearInterval(timer);
+
   gameOver = false;
   setTime = 10;
+  player1Score = 0;
+  player2Score = 0;
   currentToken = tokenX;
   gameBoard.forEach((block) => (block.innerText = ""));
 
@@ -174,6 +195,7 @@ resetBtn.addEventListener("click", () => {
   // update player names 
   player1Div.innerText = !player1UsrName ? "Player 1" : player1UsrName;
   player2Div.innerText = !player2UsrName ? "Player 2" : player2UsrName;
+
+  timer = startTimer();
 });
 
-// play again function
