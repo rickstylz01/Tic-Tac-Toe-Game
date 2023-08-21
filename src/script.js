@@ -4,10 +4,7 @@ const tokenO = "O";
 let player1Score = 0;
 let player2Score = 0;
 let currentToken = tokenX;
-let setTime = 10;
-
-
-
+let setTime = 6;
 
 // setting player names
 let player1UsrName = prompt("Player 1, what is your name?");
@@ -52,9 +49,33 @@ function handleBlockClick(event) {
       gameOver = true;
     }
 
+    // start timere when block is clicked
     clearInterval(timer);
     timer = startTimer();
   }
+}
+
+//stackoverflow topic on creating a countdown timer(https://stackoverflow.com/questions/31106189/create-a-simple-10-second-countdown)
+function startTimer() {
+  return setInterval(function() {
+    if (setTime <= 0) {
+      clearInterval(timer);
+      document.querySelector('#countdown').innerText = 'Times Up';
+      playerPenalty(currentToken);
+      displayLoseModal(currentToken);
+      footerOptions.classList.toggle('hidden');
+    } else {
+      document.querySelector('#countdown').innerText = `${currentToken === tokenX ? player1Div.innerText : player2Div.innerText}'s turn - 00:0${setTime}`;
+    }
+    setTime -= 1;
+  }, 1000);
+}
+let timer;
+
+// get footer element
+const footerOptions = document.querySelector('footer');
+function gameOptionsDisplay() {
+  footerOptions.classList.toggle('hidden');
 }
 
 let winningPlayer;
@@ -85,7 +106,7 @@ function checkWinner() {
     if (theresAWinner) {
       awardWinningPlayer(gameBoard[blockId0].innerText);
       displayWinModal(winningPlayer);  
-
+      gameOptionsDisplay();
       return winningPlayer;
     }
   }
@@ -138,6 +159,12 @@ function displayLoseModal(losingPlayer) {
   losingModal.show();  
 }
 
+function displayDrawModal() {
+  // show the modal
+  const drawModal = new bootstrap.Modal(document.getElementById('drawModal'));
+  drawModal.show();  
+}
+
 function findDraw() {
   let allMoves = 0;
   gameBoard.forEach((block) => {
@@ -147,27 +174,11 @@ function findDraw() {
   });
   //if allMoves equals 9 (and a winner was not found)
   if (allMoves === 9) {
-    // alert("DRAW");
-    drawBanner.innerHTML = 'DRAW';
+    displayDrawModal();
+    gameOptionsDisplay()
     gameOver = true;
   }
 }
-
-//stackoverflow topic on creating a countdown timer(https://stackoverflow.com/questions/31106189/create-a-simple-10-second-countdown)
-function startTimer() {
-  return setInterval(function() {
-    if (setTime <= 0) {
-      clearInterval(timer);
-      document.querySelector('#countdown').innerText = 'Times Up';
-      playerPenalty(currentToken);
-      displayLoseModal(currentToken)
-    } else {
-      document.querySelector('#countdown').innerText = `${currentToken === tokenX ? player1Div.innerText : player2Div.innerText}'s turn - 00:0${setTime}`;
-    }
-    setTime -= 1;
-  }, 1000);
-}
-let timer = startTimer();
 
 //gets all the blocks from the gameboard and adds event listener
 const gameBoard = document.querySelectorAll(".block");
@@ -182,11 +193,14 @@ resetBtn.addEventListener("click", () => {
   clearInterval(timer);
 
   gameOver = false;
-  setTime = 10;
+  setTime = 6;
   player1Score = 0;
   player2Score = 0;
+  player1ScoreBoard.innerHTML = 'Score: 0';
+  player2ScoreBoard.innerHTML = 'Score: 0';
   currentToken = tokenX;
   gameBoard.forEach((block) => (block.innerText = ""));
+  document.querySelector('#countdown').innerText = '';
 
   // prompt for player usernames again
   player1UsrName = prompt("Player 1, what is your name?");
@@ -195,7 +209,6 @@ resetBtn.addEventListener("click", () => {
   // update player names 
   player1Div.innerText = !player1UsrName ? "Player 1" : player1UsrName;
   player2Div.innerText = !player2UsrName ? "Player 2" : player2UsrName;
-
-  timer = startTimer();
+  gameOptionsDisplay();
 });
 
