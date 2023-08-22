@@ -21,6 +21,7 @@ To run this game, simply open the provided HTML file in a web browser. You'll se
 - The game checks for a winning combination after each move.
 - If a player has three matching tokens in a row, they win the game.
 - If no player wins and all squares are filled, the game ends in a draw.
+- If a player fails to make a move before the timer runs out, the other player is awarded a win.
 
 ### Countdown Timer
 - A 6-second countdown timer is displayed for each player's turn.
