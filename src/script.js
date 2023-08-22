@@ -208,9 +208,6 @@ gameBoard.forEach((block) => {
 // reset function
 const resetBtn = document.querySelector("#reset-btn");
 resetBtn.addEventListener("click", () => {
-  // clear the existing timer interval
-  //clearInterval(timer);
-
   timerHidden = true;
   gameOver = false;
   setTime = 6;
