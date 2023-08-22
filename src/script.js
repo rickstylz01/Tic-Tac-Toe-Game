@@ -69,10 +69,11 @@ function startTimer() {
     if (setTime <= 0) {
       clearInterval(timer);
       gameOver = true;
+      footerOptions.classList.remove("hidden");
       document.querySelector("#countdown").innerText = "Times Up";
       playerPenalty(currentToken);
       displayLoseModal(currentToken);
-      footerOptions.classList.remove("hidden");
+      timerHidden = true;
     } else {
       document.querySelector("#countdown").innerText = `${
         currentToken === tokenX ? player1Div.innerText : player2Div.innerText
@@ -120,6 +121,7 @@ function checkWinner() {
       return winningPlayer;
     }
   }
+  clearInterval(timer);
   findDraw();
 }
 
@@ -132,9 +134,8 @@ function findDraw() {
   });
   //if allMoves equals 9 (and a winner was not found)
   if (allMoves === 9) {
-    clearInterval(timer);
     gameOver = true;
-
+    //clearInterval(timer);
     displayDrawModal();
     toggleGameOptions();
   }

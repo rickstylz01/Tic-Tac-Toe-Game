@@ -2,6 +2,7 @@ body {
   padding: 8px;
   display: flex;
   flex-direction: column;
+  font-family: 'Bricolage Grotesque'
 }
 
 h1 {
