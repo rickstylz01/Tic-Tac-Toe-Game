@@ -1,0 +1,127 @@
+body {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Bricolage Grotesque'
+}
+
+h1 {
+  border-bottom: 2px solid black;
+}
+
+h2 {
+  border-bottom: 1px solid black;
+}
+
+img {
+  margin-bottom: 5px;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+footer button {
+  margin: auto;
+}
+
+.score-keeper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.score-keeper:nth-child(2) {
+  margin-bottom: 35px;
+}
+
+.hidden {
+  display: none;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.game-board {
+  order:3;
+  margin-bottom: 25px;
+}
+
+.col {
+  height: 145px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.block {
+  font-size: xxx-large;
+}
+
+.score-board {
+  margin-bottom: 0.5rem;
+}
+
+#score-container {
+  display: flex;
+  flex-direction: row;
+}
+
+#title-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 35px;
+}
+
+#countdown {
+  align-self: center;
+  margin-bottom: 35px;
+  font-size: x-large;
+}
+
+#first-row,
+#second-row {
+  border-bottom: 2px solid black;
+}
+
+#first-row div:nth-child(3),
+#second-row div:nth-child(3),
+#third-row div:nth-child(3) {
+  border-left: 2px solid black;
+}
+
+#first-row div:nth-child(1),
+#second-row div:nth-child(1),
+#third-row div:nth-child(1) {
+  border-right: 2px solid black;
+}
+
+
+/* Media breakpoint for desktops */
+@media (min-width: 768px) {
+
+  .main-content {
+    /* display: flex;
+    flex-direction: row; */
+    justify-content: center;
+  }
+
+  .game-board {
+    order: 2;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .score-keeper:nth-child(2) {
+    order: 3;
+    margin-bottom: 0;
+  }
+}
